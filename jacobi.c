@@ -12,6 +12,7 @@
 #define THREAD_COUNT 96
 
 pthread_t thread_ids[THREAD_COUNT];
+
 int results[THREAD_COUNT];
 
 void* mathstuff(void* args);
@@ -40,11 +41,12 @@ int main(int argc, char* argv[]){
 void* mathstuff(void* args){
   pthread_t thisthread = pthread_self();
 
-  for(int i=0; i<THREAD_COUNT; i++){
-    if(pthread_equal(thisthread,thread_ids[i])){
-      results[i] = i;
-    }
-  }
+  printf("%ld",thisthread);
+  // for(int i=0; i<THREAD_COUNT; i++){
+  //   if(pthread_equal(thisthread,thread_ids[i])){
+  //     results[i] = i;
+  //   }
+  // }
 
   return NULL;
 }
