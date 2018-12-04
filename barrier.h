@@ -1,5 +1,7 @@
 #include <stdlib.h>
 #include <pthread.h>
+#include <stdbool.h>
+
 typedef struct barrier{
   int thread_count;
   pthread_mutex_t* m;
@@ -7,7 +9,7 @@ typedef struct barrier{
   pthread_cond_t allGone;
   int total;
   int here;
-  int leaving;
+  bool leaving;
 }barrier;
 
 barrier* barrier_new(int count);
