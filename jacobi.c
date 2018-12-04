@@ -11,11 +11,14 @@
 #include <math.h>
 #include <stdbool.h>
 
+#include "barrier.h"
+
 #define THREAD_COUNT 64
 #define MATRIX_SIZE 1024
 
 //Temporary barrier
-pthread_barrier_t threadbar;
+barrier* threadbar;
+
 double threshold = .001;
 bool steadystate = false;
 
@@ -42,7 +45,7 @@ int main(int argc, char* argv[]){
     }
   }
 
-  pthread_barrier_init(&threadbar, NULL, THREAD_COUNT);
+  threadbar = barrier_new(THREAD_COUNT);
 
   for(int i=0; i<THREAD_COUNT; ++i){
     thread_nums[i] = i;
@@ -87,29 +90,57 @@ void* jacobi_algorithm(void* args){
       }
     }
 
-
-    if(pthread_barrier_wait(&threadbar)){
-
-      double maxchange = 0.0;
-      for(int i=0; i<THREAD_COUNT; i++){
-        if(thread_maxchange[i] > maxchange) maxchange = thread_maxchange[i];
-      }
-      steadystate = maxchange < threshold;
-      printf("Max change: %lf \n", maxchange);
-
-      double (*swap)[MATRIX_SIZE][MATRIX_SIZE];
-      swap = currentmat;
-      currentmat = updatedmat;
-      updatedmat = swap;
-
-    }
-    pthread_barrier_wait(&threadbar);
-
-
-
+    barrier_enter(threadbar, thd);
   }
 
-
-
   return NULL;
+}
+
+barrier* barrier_new(int count)
+{
+  barrier* b = malloc(sizeof(barrier));
+  if(b!=NULL)
+  {
+    pthread_mutex_init(b->m,NULL);
+    pthread_cond_init(&(b->allHere),NULL);
+    pthread_cond_init(&(b->allGone),NULL);
+    b->total = count;
+    b->here = 0;
+    b->leaving = 0;
+  }
+  return b;
+}
+
+void barrier_enter(barrier* b, int thd){
+  pthread_mutex_lock(b->m);
+  while(b->leaving) {
+    pthread_cond_wait(&(b->allGone),b->m);
+    pthread_cond_signal(&b->allGone);
+  }
+  b->here++;
+  while(b->here != b->total && !b->leaving){
+    pthread_cond_wait(&(b->allHere), b->m);
+  }
+  // EVERYONE HERE
+  double maxchange = 0.0;
+  for(int i=0; i<THREAD_COUNT; i++){
+    if(thread_maxchange[i] > maxchange) maxchange = thread_maxchange[i];
+  }
+  steadystate = maxchange < threshold;
+  printf("Max change: %lf \n", maxchange);
+
+  double (*swap)[MATRIX_SIZE][MATRIX_SIZE];
+  swap = currentmat;
+  currentmat = updatedmat;
+  updatedmat = swap;
+  // TIME TO LEAVE
+
+  b->leaving = 1;
+  pthread_cond_signal(&(b->allHere));
+  b->here--;
+  if(b->here == 0){
+    b->leaving = 0;
+    pthread_cond_signal(&(b->allGone));
+  }
+  pthread_mutex_unlock(b->m);
 }

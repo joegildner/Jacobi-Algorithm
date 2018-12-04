@@ -1,10 +1,7 @@
 #include <stdlib.h>
 #include <pthread.h>
 #include "barrier.h"
-int main()
-{
-  return 0;
-}
+
 barrier* barrier_new(int count)
 {
   barrier* b = malloc(sizeof(barrier));
@@ -13,7 +10,7 @@ barrier* barrier_new(int count)
     pthread_mutex_init(b->m,NULL);
     pthread_cond_init(&(b->allHere),NULL);
     pthread_cond_init(&(b->allGone),NULL);
-    b->total = 0;
+    b->total = count;
     b->here = 0;
     b->leaving = 0;
   }
@@ -28,7 +25,7 @@ void barrier_enter(barrier* b, int thd)
     pthread_cond_signal(&b->allGone);
   }
   b->here++;
-  while(b->here != b->total && b->here != b->leaving)
+  while(b->here != b->total && !b->leaving)
   {
     pthread_cond_wait(&(b->allHere), b->m);
   }
