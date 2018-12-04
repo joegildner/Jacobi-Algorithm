@@ -11,7 +11,8 @@
 #include <math.h>
 #include <stdbool.h>
 
-#define THREAD_COUNT 13
+#define THREAD_COUNT 64
+#define MATRIX_SIZE 1024
 
 //Temporary barrier
 pthread_barrier_t threadbar;
@@ -22,22 +23,22 @@ pthread_t thread_ids[THREAD_COUNT];
 int thread_nums[THREAD_COUNT];
 double thread_maxchange[THREAD_COUNT];
 
-double matrix_left[1024][1024];
-double matrix_right[1024][1024];
-double* currentmat;
-double* updatedmat;
+double matrix_left[MATRIX_SIZE][MATRIX_SIZE];
+double matrix_right[MATRIX_SIZE][MATRIX_SIZE];
+double (*currentmat)[MATRIX_SIZE][MATRIX_SIZE];
+double (*updatedmat)[MATRIX_SIZE][MATRIX_SIZE];
 
 void* jacobi_algorithm(void* args);
 
 int main(int argc, char* argv[]){
   FILE* inputmatrix = fopen("./input.mtx","r");
-  currentmat = &(matrix_left[0][0]);
-  updatedmat = &(matrix_right[0][0]);
+  currentmat = &matrix_left;
+  updatedmat = &matrix_right;
 
-  for(int row=0; row<1024; row++){
-    for(int col=0; col<1024; col++){
-      fscanf(inputmatrix, "%lf ", &(currentmat[row][col]));
-      updatedmat[row][col] = -1.0;
+  for(int row=0; row<MATRIX_SIZE; row++){
+    for(int col=0; col<MATRIX_SIZE; col++){
+      fscanf(inputmatrix, "%lf ", &((*currentmat)[row][col]));
+      (*updatedmat)[row][col] = (*currentmat)[row][col];
     }
   }
 
@@ -56,11 +57,11 @@ int main(int argc, char* argv[]){
     pthread_join(thread_ids[i],NULL);
   }
 
-  for(int row = 1; row<1023; row++){
-    for(int col = 1; col<1023; col++){
-      if(updatedmat[row][col] == -1.0)
-      printf("ERROR %d,%d\n", row, col);
+  for(int row=0; row<MATRIX_SIZE; row++){
+    for(int col=0; col<MATRIX_SIZE; col++){
+      printf("%lf ",(*updatedmat)[row][col]);
     }
+    printf("\n");
   }
 }
 
@@ -68,30 +69,44 @@ void* jacobi_algorithm(void* args){
   int thd = *((int*) args);
 
   while(!steadystate){
-    for(int row = 1; row<1023; row++){
-      for(int col = thd+1; col<1023; col += THREAD_COUNT){
+    thread_maxchange[thd] = 0.0;
+    for(int row = thd+1; row<MATRIX_SIZE-1; row += THREAD_COUNT){
+      for(int col = 1; col<MATRIX_SIZE-1; col++){
+        double above = (*currentmat)[row-1][col];
+        double below = (*currentmat)[row+1][col];
+        double left = (*currentmat)[row][col-1];
+        double right = (*currentmat)[row][col+1];
+        double newval = (above + below + left +right)/4;
+        (*updatedmat)[row][col] = newval;
 
-        double above = currentmat[row-1][col];
-        double below = currentmat[row+1][col];
-        double left = currentmat[row][col-1];
-        double right = currentmat[row][col+1];
-        updatedmat[row][col] = (above + below + left +right)/4;
+        double chg = (newval - (*currentmat)[row][col]);
 
-        double chg = abs(updatedmat[row][col] - currentmat[row][col]);
-        if(chg > thread_maxchange[thd]) thread_maxchange[thd] = chg;
+        if(chg > thread_maxchange[thd]){
+          thread_maxchange[thd] = chg;
+        }
       }
     }
 
 
     if(pthread_barrier_wait(&threadbar)){
+
       double maxchange = 0.0;
       for(int i=0; i<THREAD_COUNT; i++){
-        if(thread_maxchange[i] > maxchange)maxchange = thread_maxchange[i];
+        if(thread_maxchange[i] > maxchange) maxchange = thread_maxchange[i];
       }
       steadystate = maxchange < threshold;
+      printf("Max change: %lf \n", maxchange);
+
+      double (*swap)[MATRIX_SIZE][MATRIX_SIZE];
+      swap = currentmat;
       currentmat = updatedmat;
+      updatedmat = swap;
+
     }
     pthread_barrier_wait(&threadbar);
+
+
+
   }
 
 
