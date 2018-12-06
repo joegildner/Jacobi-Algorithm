@@ -13,20 +13,20 @@
 
 #include "barrier.h"
 
-#define THREAD_COUNT 10
 #define MATRIX_SIZE 1024
 
 //Barrier to synchronize threads
 barrier* threadbar;
 
 //Algorithm data
-double threshold = .001;
+double threshold = .00001;
 bool steadystate = false;
 
 //Thread data to store for each thread
-pthread_t thread_ids[THREAD_COUNT];
-int thread_nums[THREAD_COUNT];
-double thread_maxchange[THREAD_COUNT];
+int THREAD_COUNT = 0;
+pthread_t* thread_ids;
+int* thread_nums;
+double* thread_maxchange;
 
 //Matrices to store data between iterations of jacobi's algorithm
 double matrix_left[MATRIX_SIZE][MATRIX_SIZE];
@@ -43,27 +43,45 @@ int main(int argc, char* argv[]){
   currentmat = &matrix_left;
   updatedmat = &matrix_right;
 
+  if(argc == 2){
+    THREAD_COUNT = strtol(argv[1],NULL,10);
+    thread_ids = calloc(THREAD_COUNT, sizeof(pthread_t));
+    thread_nums = calloc(THREAD_COUNT, sizeof(int));
+    thread_maxchange = calloc(THREAD_COUNT, sizeof(double));
+  }
+
   for(int row=0; row<MATRIX_SIZE; row++){
     for(int col=0; col<MATRIX_SIZE; col++){
       fscanf(inputmatrix, "%lf ", &((*currentmat)[row][col]));
       (*updatedmat)[row][col] = (*currentmat)[row][col];
     }
-    threadbar = barrier_new(THREAD_COUNT);
+  }
+  threadbar = barrier_new(THREAD_COUNT);
 
-    for(int i=0; i<THREAD_COUNT; ++i){
-      thread_nums[i] = i;
-      if(pthread_create(&(thread_ids[i]), NULL, &jacobi_algorithm, (void*)(&thread_nums[i])) != 0){
-        perror("pthread");
-      }else{
-        //printf("Created thread %d successfully\n",i);
-      }
-    }
+  fprintf(stderr, "Running Jacobi's Algorithm with %d threads\n", THREAD_COUNT);
+  fprintf(stdout, "Running Jacobi's Algorithm with %d threads\n", THREAD_COUNT);
 
-    for(int i=0; i<THREAD_COUNT; i++){
-      pthread_join(thread_ids[i],NULL);
+  for(int i=0; i<THREAD_COUNT; ++i){
+    thread_nums[i] = i;
+    if(pthread_create(&(thread_ids[i]), NULL, &jacobi_algorithm, (void*)(&thread_nums[i])) != 0){
+      perror("pthread");
     }
   }
+
+  for(int i=0; i<THREAD_COUNT; i++){
+    pthread_join(thread_ids[i],NULL);
+  }
+
+  FILE* outputmat = fopen("./output.mtx","w");
+
+  for(int row = 0; row<MATRIX_SIZE; row++){
+    for(int col = 0; col<MATRIX_SIZE; col++){
+      fprintf(outputmat,"%.10f ", (*currentmat)[row][col]);
+    }
+    fprintf(outputmat,"\n");
+  }
 }
+
 
 void* jacobi_algorithm(void* args){
   int thd = *((int*) args);
@@ -75,9 +93,9 @@ void* jacobi_algorithm(void* args){
 
       for(int col = 1; col<MATRIX_SIZE-1; col++){
         (*updatedmat)[row][col] = ((*currentmat)[row-1][col] +
-        (*currentmat)[row+1][col] +
-        (*currentmat)[row][col-1] +
-        (*currentmat)[row][col+1]   ) /4;
+          (*currentmat)[row+1][col] +
+          (*currentmat)[row][col-1] +
+          (*currentmat)[row][col+1]   ) /4;
 
         double chg = ((*updatedmat)[row][col] - (*currentmat)[row][col]);
 
