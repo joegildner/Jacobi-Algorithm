@@ -1,0 +1,80 @@
+Running Jacobi's Algorithm with 1 threads
+
+real	8m22.280s
+user	8m22.236s
+sys	0m0.060s
+Running Jacobi's Algorithm with 2 threads
+
+real	4m37.188s
+user	9m12.343s
+sys	0m0.396s
+Running Jacobi's Algorithm with 3 threads
+
+real	3m22.959s
+user	10m5.153s
+sys	0m0.893s
+Running Jacobi's Algorithm with 4 threads
+
+real	2m48.563s
+user	11m7.478s
+sys	0m1.333s
+Running Jacobi's Algorithm with 5 threads
+
+real	3m35.496s
+user	14m11.779s
+sys	0m2.236s
+Running Jacobi's Algorithm with 6 threads
+
+real	3m10.149s
+user	16m41.022s
+sys	0m2.613s
+Running Jacobi's Algorithm with 7 threads
+
+real	2m54.719s
+user	19m13.269s
+sys	0m2.720s
+Running Jacobi's Algorithm with 8 threads
+
+real	2m32.941s
+user	19m55.989s
+sys	0m2.631s
+Running Jacobi's Algorithm with 9 threads
+
+real	3m16.206s
+user	18m9.483s
+sys	0m6.027s
+Running Jacobi's Algorithm with 10 threads
+
+real	3m6.747s
+user	17m39.279s
+sys	0m7.990s
+Running Jacobi's Algorithm with 11 threads
+
+real	3m4.597s
+user	17m31.457s
+sys	0m8.072s
+Running Jacobi's Algorithm with 12 threads
+
+real	3m2.670s
+user	17m28.866s
+sys	0m8.190s
+Running Jacobi's Algorithm with 13 threads
+
+real	3m3.779s
+user	17m49.463s
+sys	0m8.970s
+Running Jacobi's Algorithm with 14 threads
+
+real	2m55.181s
+user	18m37.455s
+sys	0m8.643s
+Running Jacobi's Algorithm with 15 threads
+
+real	2m53.087s
+user	19m18.329s
+sys	0m8.861s
+Running Jacobi's Algorithm with 16 threads
+
+real	2m54.007s
+user	19m39.625s
+sys	0m8.796s
