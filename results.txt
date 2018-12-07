@@ -1,80 +1,512 @@
 Running Jacobi's Algorithm with 1 threads
+Running Trial 1
 
-real	8m22.280s
-user	8m22.236s
-sys	0m0.060s
+real	8m9.258s
+user	8m9.187s
+sys	0m0.028s
+Running Trial 2
+
+real	8m9.865s
+user	8m9.856s
+sys	0m0.008s
+Running Trial 3
+
+real	8m10.660s
+user	8m10.650s
+sys	0m0.008s
 Running Jacobi's Algorithm with 2 threads
+Running Trial 1
 
-real	4m37.188s
-user	9m12.343s
-sys	0m0.396s
+real	4m32.487s
+user	9m3.969s
+sys	0m0.492s
+Running Trial 2
+
+real	4m32.122s
+user	9m3.399s
+sys	0m0.432s
+Running Trial 3
+
+real	4m32.087s
+user	9m3.198s
+sys	0m0.424s
 Running Jacobi's Algorithm with 3 threads
+Running Trial 1
 
-real	3m22.959s
-user	10m5.153s
-sys	0m0.893s
+real	3m13.499s
+user	9m38.287s
+sys	0m0.800s
+Running Trial 2
+
+real	3m13.992s
+user	9m39.712s
+sys	0m0.900s
+Running Trial 3
+
+real	3m16.158s
+user	9m45.968s
+sys	0m0.852s
 Running Jacobi's Algorithm with 4 threads
+Running Trial 1
 
-real	2m48.563s
-user	11m7.478s
-sys	0m1.333s
+real	2m41.054s
+user	10m39.506s
+sys	0m1.356s
+Running Trial 2
+
+real	2m40.858s
+user	10m38.818s
+sys	0m1.429s
+Running Trial 3
+
+real	2m41.885s
+user	10m42.844s
+sys	0m1.544s
 Running Jacobi's Algorithm with 5 threads
+Running Trial 1
 
-real	3m35.496s
-user	14m11.779s
-sys	0m2.236s
+real	3m34.747s
+user	14m9.373s
+sys	0m2.264s
+Running Trial 2
+
+real	3m33.584s
+user	14m7.584s
+sys	0m2.412s
+Running Trial 3
+
+real	3m32.937s
+user	14m4.883s
+sys	0m1.973s
 Running Jacobi's Algorithm with 6 threads
+Running Trial 1
 
-real	3m10.149s
-user	16m41.022s
-sys	0m2.613s
+real	3m10.959s
+user	16m56.540s
+sys	0m3.021s
+Running Trial 2
+
+real	3m11.570s
+user	16m58.995s
+sys	0m2.966s
+Running Trial 3
+
+real	3m13.785s
+user	17m8.868s
+sys	0m2.799s
 Running Jacobi's Algorithm with 7 threads
+Running Trial 1
 
-real	2m54.719s
-user	19m13.269s
-sys	0m2.720s
+real	2m52.453s
+user	18m51.700s
+sys	0m2.935s
+Running Trial 2
+
+real	2m50.501s
+user	18m40.470s
+sys	0m2.766s
+Running Trial 3
+
+real	2m50.838s
+user	18m43.273s
+sys	0m2.707s
 Running Jacobi's Algorithm with 8 threads
+Running Trial 1
 
-real	2m32.941s
-user	19m55.989s
-sys	0m2.631s
+real	2m28.247s
+user	19m27.121s
+sys	0m3.556s
+Running Trial 2
+
+real	2m26.730s
+user	19m15.498s
+sys	0m3.114s
+Running Trial 3
+
+real	2m27.752s
+user	19m22.936s
+sys	0m3.482s
 Running Jacobi's Algorithm with 9 threads
+Running Trial 1
 
-real	3m16.206s
-user	18m9.483s
-sys	0m6.027s
+real	3m14.262s
+user	18m2.447s
+sys	0m6.994s
+Running Trial 2
+
+real	3m14.498s
+user	18m4.193s
+sys	0m6.862s
+Running Trial 3
+
+real	3m14.534s
+user	18m4.911s
+sys	0m6.778s
 Running Jacobi's Algorithm with 10 threads
+Running Trial 1
 
-real	3m6.747s
-user	17m39.279s
-sys	0m7.990s
+real	3m9.299s
+user	18m1.358s
+sys	0m7.762s
+Running Trial 2
+
+real	3m9.082s
+user	17m59.626s
+sys	0m7.740s
+Running Trial 3
+
+real	3m9.286s
+user	18m0.728s
+sys	0m7.903s
 Running Jacobi's Algorithm with 11 threads
+Running Trial 1
 
-real	3m4.597s
-user	17m31.457s
-sys	0m8.072s
+real	3m3.376s
+user	17m44.475s
+sys	0m7.868s
+Running Trial 2
+
+real	3m3.282s
+user	17m45.810s
+sys	0m7.321s
+Running Trial 3
+
+real	3m3.012s
+user	17m44.196s
+sys	0m7.387s
 Running Jacobi's Algorithm with 12 threads
+Running Trial 1
 
-real	3m2.670s
-user	17m28.866s
-sys	0m8.190s
+real	3m2.043s
+user	17m44.848s
+sys	0m7.967s
+Running Trial 2
+
+real	3m2.503s
+user	17m46.604s
+sys	0m7.942s
+Running Trial 3
+
+real	3m2.122s
+user	17m45.326s
+sys	0m7.710s
 Running Jacobi's Algorithm with 13 threads
+Running Trial 1
 
-real	3m3.779s
-user	17m49.463s
-sys	0m8.970s
+real	3m5.710s
+user	18m20.902s
+sys	0m8.371s
+Running Trial 2
+
+real	3m5.798s
+user	18m21.312s
+sys	0m8.296s
+Running Trial 3
+
+real	3m5.675s
+user	18m20.838s
+sys	0m8.326s
 Running Jacobi's Algorithm with 14 threads
+Running Trial 1
 
-real	2m55.181s
-user	18m37.455s
-sys	0m8.643s
+real	2m57.636s
+user	18m54.923s
+sys	0m8.866s
+Running Trial 2
+
+real	2m57.405s
+user	18m54.437s
+sys	0m8.762s
+Running Trial 3
+
+real	2m56.825s
+user	18m51.359s
+sys	0m8.525s
 Running Jacobi's Algorithm with 15 threads
+Running Trial 1
 
-real	2m53.087s
-user	19m18.329s
-sys	0m8.861s
+real	2m53.535s
+user	19m33.080s
+sys	0m8.628s
+Running Trial 2
+
+real	2m54.008s
+user	19m35.231s
+sys	0m8.519s
+Running Trial 3
+
+real	2m53.590s
+user	19m30.386s
+sys	0m8.688s
 Running Jacobi's Algorithm with 16 threads
+Running Trial 1
 
-real	2m54.007s
-user	19m39.625s
-sys	0m8.796s
+real	2m52.208s
+user	19m45.744s
+sys	0m9.031s
+Running Trial 2
+
+real	2m52.112s
+user	19m43.887s
+sys	0m9.488s
+Running Trial 3
+
+real	2m52.426s
+user	19m47.821s
+sys	0m9.140s
+Running Jacobi's Algorithm with 17 threads
+Running Trial 1
+
+real	3m3.969s
+user	19m29.291s
+sys	0m10.389s
+Running Trial 2
+
+real	3m3.787s
+user	19m28.425s
+sys	0m9.949s
+Running Trial 3
+
+real	3m3.442s
+user	19m26.000s
+sys	0m10.274s
+Running Jacobi's Algorithm with 18 threads
+Running Trial 1
+
+real	2m59.885s
+user	19m9.842s
+sys	0m11.140s
+Running Trial 2
+
+real	2m59.848s
+user	19m11.515s
+sys	0m10.636s
+Running Trial 3
+
+real	3m0.241s
+user	19m13.413s
+sys	0m11.020s
+Running Jacobi's Algorithm with 19 threads
+Running Trial 1
+
+real	2m59.990s
+user	19m11.938s
+sys	0m11.582s
+Running Trial 2
+
+real	3m0.095s
+user	19m11.795s
+sys	0m11.899s
+Running Trial 3
+
+real	2m59.665s
+user	19m9.307s
+sys	0m11.552s
+Running Jacobi's Algorithm with 20 threads
+Running Trial 1
+
+real	3m1.468s
+user	19m18.260s
+sys	0m12.033s
+Running Trial 2
+
+real	3m1.023s
+user	19m16.240s
+sys	0m12.162s
+Running Trial 3
+
+real	3m1.188s
+user	19m17.857s
+sys	0m12.183s
+Running Jacobi's Algorithm with 21 threads
+Running Trial 1
+
+real	3m2.721s
+user	19m30.601s
+sys	0m13.264s
+Running Trial 2
+
+real	3m3.734s
+user	19m36.104s
+sys	0m13.277s
+Running Trial 3
+
+real	3m3.788s
+user	19m36.202s
+sys	0m12.514s
+Running Jacobi's Algorithm with 22 threads
+Running Trial 1
+
+real	3m3.668s
+user	19m56.890s
+sys	0m12.729s
+Running Trial 2
+
+real	3m2.443s
+user	19m51.719s
+sys	0m12.214s
+Running Trial 3
+
+real	3m2.377s
+user	19m51.022s
+sys	0m12.595s
+Running Jacobi's Algorithm with 23 threads
+Running Trial 1
+
+real	3m1.628s
+user	20m2.879s
+sys	0m12.821s
+Running Trial 2
+
+real	3m0.557s
+user	19m55.729s
+sys	0m13.259s
+Running Trial 3
+
+real	3m0.852s
+user	19m58.955s
+sys	0m12.953s
+Running Jacobi's Algorithm with 24 threads
+Running Trial 1
+
+real	3m1.490s
+user	20m3.907s
+sys	0m14.007s
+Running Trial 2
+
+real	3m0.790s
+user	20m1.541s
+sys	0m13.480s
+Running Trial 3
+
+real	3m1.724s
+user	20m4.962s
+sys	0m13.508s
+Running Jacobi's Algorithm with 25 threads
+Running Trial 1
+
+real	3m2.968s
+user	19m50.772s
+sys	0m14.787s
+Running Trial 2
+
+real	3m4.315s
+user	19m58.465s
+sys	0m14.315s
+Running Trial 3
+
+real	3m3.483s
+user	19m52.608s
+sys	0m14.659s
+Running Jacobi's Algorithm with 26 threads
+Running Trial 1
+
+real	3m3.472s
+user	19m52.992s
+sys	0m14.763s
+Running Trial 2
+
+real	3m3.146s
+user	19m50.636s
+sys	0m15.022s
+Running Trial 3
+
+real	3m2.731s
+user	19m47.749s
+sys	0m15.468s
+Running Jacobi's Algorithm with 27 threads
+Running Trial 1
+
+real	3m6.190s
+user	19m53.502s
+sys	0m16.386s
+Running Trial 2
+
+real	3m5.035s
+user	19m55.014s
+sys	0m15.827s
+Running Trial 3
+
+real	3m4.743s
+user	19m54.214s
+sys	0m15.878s
+Running Jacobi's Algorithm with 28 threads
+Running Trial 1
+
+real	3m7.044s
+user	20m1.894s
+sys	0m16.678s
+Running Trial 2
+
+real	3m7.613s
+user	20m5.063s
+sys	0m16.749s
+Running Trial 3
+
+real	3m6.756s
+user	20m0.502s
+sys	0m16.686s
+Running Jacobi's Algorithm with 29 threads
+Running Trial 1
+
+real	3m9.027s
+user	20m18.346s
+sys	0m17.149s
+Running Trial 2
+
+real	3m7.992s
+user	20m13.746s
+sys	0m17.774s
+Running Trial 3
+
+real	3m8.728s
+user	20m18.570s
+sys	0m16.852s
+Running Jacobi's Algorithm with 30 threads
+Running Trial 1
+
+real	3m9.578s
+user	20m32.207s
+sys	0m17.947s
+Running Trial 2
+
+real	3m9.466s
+user	20m32.785s
+sys	0m17.176s
+Running Trial 3
+
+real	3m9.230s
+user	20m31.378s
+sys	0m17.600s
+Running Jacobi's Algorithm with 31 threads
+Running Trial 1
+
+real	3m9.527s
+user	20m35.019s
+sys	0m18.103s
+Running Trial 2
+
+real	3m10.169s
+user	20m39.167s
+sys	0m18.524s
+Running Trial 3
+
+real	3m9.958s
+user	20m38.710s
+sys	0m17.804s
+Running Jacobi's Algorithm with 32 threads
+Running Trial 1
+
+real	3m12.898s
+user	20m50.295s
+sys	0m18.814s
+Running Trial 2
+
+real	3m9.488s
+user	20m31.536s
+sys	0m18.180s
+Running Trial 3
+
+real	3m9.316s
+user	20m30.278s
+sys	0m18.282s

@@ -12,8 +12,8 @@
 #include <stdbool.h>
 
 #include "barrier.h"
+#include "matrixio.h"
 
-#define MATRIX_SIZE 1024
 
 //Barrier to synchronize threads
 barrier* threadbar;
@@ -24,22 +24,23 @@ bool steadystate = false;
 
 //Thread data to store for each thread
 int THREAD_COUNT = 0;
-pthread_t* thread_ids;
 int* thread_nums;
 double* thread_maxchange;
 
 //Matrices to store data between iterations of jacobi's algorithm
-double matrix_left[MATRIX_SIZE][MATRIX_SIZE];
-double matrix_right[MATRIX_SIZE][MATRIX_SIZE];
+double matrix_left[1024][1024];
+double matrix_right[1024][1024];
 
 //Pointers to be used to switch between the above matrices
-double (*currentmat)[MATRIX_SIZE][MATRIX_SIZE];
-double (*updatedmat)[MATRIX_SIZE][MATRIX_SIZE];
+double (*currentmat)[1024][1024];
+double (*updatedmat)[1024][1024];
 
 void* jacobi_algorithm(void* args);
 
 int main(int argc, char* argv[]){
-  FILE* inputmatrix = fopen("./input.mtx","r");
+
+  pthread_t* thread_ids;
+
   currentmat = &matrix_left;
   updatedmat = &matrix_right;
 
@@ -50,16 +51,9 @@ int main(int argc, char* argv[]){
     thread_maxchange = calloc(THREAD_COUNT, sizeof(double));
   }
 
-  for(int row=0; row<MATRIX_SIZE; row++){
-    for(int col=0; col<MATRIX_SIZE; col++){
-      fscanf(inputmatrix, "%lf ", &((*currentmat)[row][col]));
-      (*updatedmat)[row][col] = (*currentmat)[row][col];
-    }
-  }
-  threadbar = barrier_new(THREAD_COUNT);
+  load_matrices(currentmat, updatedmat);
 
-  fprintf(stderr, "Running Jacobi's Algorithm with %d threads\n", THREAD_COUNT);
-  fprintf(stdout, "Running Jacobi's Algorithm with %d threads\n", THREAD_COUNT);
+  threadbar = barrier_new(THREAD_COUNT);
 
   for(int i=0; i<THREAD_COUNT; ++i){
     thread_nums[i] = i;
@@ -72,14 +66,8 @@ int main(int argc, char* argv[]){
     pthread_join(thread_ids[i],NULL);
   }
 
-  FILE* outputmat = fopen("./output.mtx","w");
+  output_matrix(currentmat);
 
-  for(int row = 0; row<MATRIX_SIZE; row++){
-    for(int col = 0; col<MATRIX_SIZE; col++){
-      fprintf(outputmat,"%.10f ", (*currentmat)[row][col]);
-    }
-    fprintf(outputmat,"\n");
-  }
 }
 
 
@@ -89,9 +77,9 @@ void* jacobi_algorithm(void* args){
   while(!steadystate){
     thread_maxchange[thd] = 0.0;
 
-    for(int row = thd+1; row<MATRIX_SIZE-1; row += THREAD_COUNT){
+    for(int row = thd+1; row<1023; row += THREAD_COUNT){
 
-      for(int col = 1; col<MATRIX_SIZE-1; col++){
+      for(int col = 1; col<1023; col++){
         (*updatedmat)[row][col] = ((*currentmat)[row-1][col] +
           (*currentmat)[row+1][col] +
           (*currentmat)[row][col-1] +
@@ -144,7 +132,7 @@ void barrier_enter(barrier* b, int thd){
     }
     steadystate = maxchange < threshold;
 
-    double (*swap)[MATRIX_SIZE][MATRIX_SIZE];
+    double (*swap)[1024][1024];
     swap = currentmat;
     currentmat = updatedmat;
     updatedmat = swap;
@@ -160,3 +148,4 @@ void barrier_enter(barrier* b, int thd){
   }
   pthread_mutex_unlock(b->m);
 }
+
